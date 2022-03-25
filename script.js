@@ -19,25 +19,69 @@ let computerPlay = () => {
             return "scissors"
     }
 }
-// Step 2. Write function to ask the user for their input?
-// Step 2a. Format user input into standardized lower case
-// Step 2b. See if it is an acceptable answer, if not, end the round
 
-
-const playerSelection = "rock"
+const playerSelection = "paper"
 const computerSelection = computerPlay();
 
-console.log("The computer is now guessing")
+// console.log("The computer is now guessing")
 
 // Step 3. Play a round
 let playRound = (playerSelection, computerSelection) => {
-    // Translate computer selection
-
-
-}
-
-    // Step 4. Declare round winner
+    console.log("Playing Round")
+    switch (playerSelection) {
+        case ("rock"):
+            if (computerSelection === "rock") {
+                console.log("Draw!")
+                return 0;
+            } else if (computerSelection === "paper") {
+                console.log("You Lose!")
+                return -1;
+            } else {
+                console.log("You Win!")
+                return 1;
+            }
+        case ("paper"):
+            if (computerSelection === "rock") {
+                console.log("You Win!")
+                return 1;
+            } else if (computerSelection === "paper") {
+                console.log("Draw!")
+                return 0;
+            } else {
+                console.log("You Lose!")
+                return -1;
+            }
+        case ("scissors"):
+            if (computerSelection === "rock") {
+                console.log("You Lose!")
+                return -1;
+            } else if (computerSelection === "paper") {
+                console.log("You Win!")
+                return 1;
+            } else {
+                console.log("Draw")
+                return 0;
+            }
+    }
 
 }
 
 playRound(playerSelection, computerSelection)
+
+let game = () => {
+    let playerScore, computerScore = 0;
+    for (let i = 0; i < 5; i++) {
+        let playerSelection = "scissors"
+        switch (playRound(playerSelection, computerSelection())) {
+            case (1):
+                playerScore++;
+                break;
+            case (-1):
+                computerScore++;
+                break;
+            case (0):
+                // Do Nothing
+                break;
+        }
+    }
+}
