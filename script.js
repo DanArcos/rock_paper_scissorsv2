@@ -1,8 +1,6 @@
 console.log("Hello")
 
 // Rock paper scissors
-// 1 = Rock, 2 = Paper, 3 = Scissors
-// 1 % 3 < 2% 3
 
 // Step 1. write function to generate computer input based on random numbers
 let computerPlay = () => {
@@ -20,14 +18,24 @@ let computerPlay = () => {
     }
 }
 
-const playerSelection = "paper"
-const computerSelection = computerPlay();
+// Step 2. Write a function to let the player make a choice.
+let playerPlay = () => {
+    let answer = prompt("Choose 'rock', 'paper', or 'scissors'");
+    answer = answer.toLowerCase()
+    if (answer === 'rock' || answer === 'paper' || answer === 'scissors') {
+        console.log("Player selection made")
+        return answer;
+    } else {
+        alert("type a correct option")
+        playerPlay()
+    }
+}
 
-// console.log("The computer is now guessing")
-
-// Step 3. Play a round
+// Step 3. write a function to play a round depending on the choices that the players make
 let playRound = (playerSelection, computerSelection) => {
     console.log("Playing Round")
+    console.log("You chose " + playerSelection)
+    console.log("Computer chose " + computerSelection)
     switch (playerSelection) {
         case ("rock"):
             if (computerSelection === "rock") {
@@ -66,13 +74,12 @@ let playRound = (playerSelection, computerSelection) => {
 
 }
 
-playRound(playerSelection, computerSelection)
-
+// Step 4. Write a game function
 let game = () => {
-    let playerScore, computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = "scissors"
-        switch (playRound(playerSelection, computerSelection())) {
+
+    // Update screen helper function
+    let updateScore = (roundResult) => {
+        switch (roundResult) {
             case (1):
                 playerScore++;
                 break;
@@ -84,4 +91,35 @@ let game = () => {
                 break;
         }
     }
+
+    let numberRounds = 5;
+    let playerScore = 0, computerScore = 0;
+
+    console.log("Playing a game of " + numberRounds + " rounds")
+
+    for (let i = 0; i < numberRounds; i++) {
+
+        console.log("Round " + (i + 1))
+
+        let roundResult = playRound(playerPlay(), computerPlay())
+
+        // Update the player and computer scores
+        updateScore(roundResult)
+
+    }
+
+    console.log("The Game has ended")
+    console.log("Final Player Score: " + playerScore)
+    console.log("Final Computer Score: " + computerScore)
+
+    // After the games have ended decide the winner
+    if (playerScore > computerScore) {
+        console.log("You Win the game!")
+    } else if (playerScore < computerScore) {
+        console.log('You Lose the game!')
+    } else {
+        console.log("The game ended in a draw")
+    }
 }
+
+game()
